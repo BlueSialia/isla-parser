@@ -1,0 +1,62 @@
+{
+  "name": "@bluesialia/isla-parser",
+  "version": "0.0.0",
+  "description": "Home assignment from Isla as part of interview process",
+  "keywords": [
+    "isla",
+    "parser",
+    "assignment"
+  ],
+  "homepage": "https://github.com/bluesialia/isla-parser",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./browser": {
+      "import": "./dist/browser.js",
+      "types": "./dist/browser.d.ts"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "browser": "./dist/browser.js",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "lint": "biome check --error-on-warnings",
+    "format": "biome format --write",
+    "test": "vitest run --coverage",
+    "size": "size-limit"
+  },
+  "author": "Jorge Domínguea Arnáez (BlueSialia) <bluesialia@gmail.com>",
+  "funding": "https://github.com/bluesialia/isla-parser?sponsor=1",
+  "repository": "github:bluesialia/isla-parser",
+  "bugs": {
+    "url": "https://github.com/bluesialia/isla-parser/issues"
+  },
+  "license": "Hippocratic License 3.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "size-limit": [
+    {
+      "path": "dist/browser.js",
+      "limit": "3.5 KB"
+    }
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "^2",
+    "@size-limit/preset-small-lib": "^12",
+    "@types/node": "^24",
+    "@vitest/coverage-istanbul": "^4",
+    "size-limit": "^12",
+    "tsdown": "~0.21",
+    "typescript": "^6",
+    "vitest": "^4"
+  }
+}
