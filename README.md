@@ -24,3 +24,5 @@ And describe how to structure a full application around the previous functionali
 3. Add an initial battery of tests to ensure the implementation works correctly.
 
 4. Rethink what is tested and what is missing and improve things here and there.
+
+5. Document main functions because I forgot to do it between steps 2 and 3.

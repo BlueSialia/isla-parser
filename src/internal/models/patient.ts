@@ -18,6 +18,7 @@ import {
 } from "../errors/validation-error";
 import { YYYYMMDD_RE } from "../message-constants";
 
+/** Domain model representing a validated patient with normalized fields and JSON serialization. */
 export class Patient {
   public readonly fullName: FullName;
   public readonly dateOfBirth: Date;

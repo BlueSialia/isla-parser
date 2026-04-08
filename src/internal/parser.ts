@@ -7,6 +7,7 @@ export interface ParsedSegment {
   fields: ParsedField[];
 }
 
+/** Parse a single segment line into a ParsedSegment, extracting its tag and fields. */
 export function parseSegment(line: string): ParsedSegment {
   const firstSep = line.indexOf(FIELD_SEPARATOR);
   const name = firstSep === -1 ? line : line.substring(0, firstSep);
@@ -28,6 +29,7 @@ export function parseSegment(line: string): ParsedSegment {
   };
 }
 
+/** Parse a full message into an array of ParsedSegments by splitting into non-empty trimmed lines. */
 export function parseMessage(message: string): ParsedSegment[] {
   const lines = message
     .split(/\r?\n/)

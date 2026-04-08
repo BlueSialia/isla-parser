@@ -23,8 +23,8 @@ export function processMessage(message: string): ReturnType<Patient["toJSON"]> {
 }
 
 /**
- * Parse a message, extract patient fields, and construct a domain Patient.
- * Returns the JSON string representation.
+ * Convenience wrapper that processes a message and returns a pretty-printed
+ * JSON string of the resulting patient object.
  */
 export function processMessageToJsonString(
   message: string,

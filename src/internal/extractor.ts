@@ -10,6 +10,9 @@ import {
 import type { BuildPatientArgs } from "./models/patient";
 import type { ParsedSegment } from "./parser";
 
+/**
+ * Extracts patient fields from parsed segments and returns the normalized build args.
+ */
 export function extractPatient(segments: ParsedSegment[]): BuildPatientArgs {
   for (const req of REQUIRED_SEGMENTS) {
     const count = segments.filter((s) => s.name === req).length;

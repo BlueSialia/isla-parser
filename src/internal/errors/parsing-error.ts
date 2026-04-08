@@ -1,3 +1,12 @@
+/**
+ * Options describing additional context for a parsing error.
+ *
+ * - `code`: a machine-friendly error code (e.g. "E_MISSING_SEGMENT").
+ * - `segment`: the segment/tag name where the error occurred (e.g. "PRS").
+ * - `fieldIndex`: the 0-based index of the offending field within the segment.
+ * - `componentIndex`: the 0-based index of the offending component within the field.
+ * - `original`: the original raw text involved in the error (when helpful).
+ */
 export interface ParsingErrorOptions {
   code?: string;
   segment?: string;

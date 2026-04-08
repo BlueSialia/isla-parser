@@ -5,6 +5,7 @@ export interface ValidationIssue {
   meta?: Record<string, unknown>;
 }
 
+/** Represents validation failures and contains a list of issues. */
 export class ValidationError extends Error {
   public readonly issues: ValidationIssue[];
 
