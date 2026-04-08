@@ -52,30 +52,31 @@ export class Patient {
     }
 
     // Normalize DOB
-    if (!YYYYMMDD_RE.test(args.dobRaw)) {
+    let dob: Date | null = null;
+    if (YYYYMMDD_RE.test(args.dobRaw)) {
+      const y: number = Number(args.dobRaw.substring(0, 4)),
+        m: number = Number(args.dobRaw.substring(4, 6)) - 1, // Months are zero-indexed
+        d: number = Number(args.dobRaw.substring(6, 8));
+
+      dob = new Date(Date.UTC(y, m, d));
+
+      if (
+        !(
+          dob.getUTCFullYear() === y &&
+          dob.getUTCMonth() === m &&
+          dob.getUTCDate() === d
+        )
+      ) {
+        issues.push({
+          field: "dateOfBirth",
+          message: "dateOfBirth must be a valid date in YYYYMMDD format",
+        });
+      }
+    } else {
       issues.push({
         field: "dateOfBirth",
         message:
           "dateOfBirth is required and must be a string in YYYYMMDD format",
-      });
-    }
-
-    const y: number = Number(args.dobRaw.substring(0, 4)),
-      m: number = Number(args.dobRaw.substring(4, 6)) - 1, // Months are zero-indexed
-      d: number = Number(args.dobRaw.substring(6, 8));
-
-    const dob: Date = new Date(Date.UTC(y, m, d));
-
-    if (
-      !(
-        dob.getUTCFullYear() === y &&
-        dob.getUTCMonth() === m &&
-        dob.getUTCDate() === d
-      )
-    ) {
-      issues.push({
-        field: "dateOfBirth",
-        message: "dateOfBirth must be a valid date in YYYYMMDD format",
       });
     }
 

@@ -29,6 +29,7 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "lint": "biome check --error-on-warnings",
+    "fix": "biome check --write",
     "format": "biome format --write",
     "test": "vitest run --coverage",
     "size": "size-limit"

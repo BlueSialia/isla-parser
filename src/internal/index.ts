@@ -9,7 +9,7 @@ import parseMessage from "./parser";
  */
 export function processMessage(message: string): ReturnType<Patient["toJSON"]> {
   const segments = parseMessage(message);
-  if (!Array.isArray(segments) || segments.length === 0) {
+  if (segments.length === 0) {
     throw new ParsingError("no segments parsed from message");
   }
 
