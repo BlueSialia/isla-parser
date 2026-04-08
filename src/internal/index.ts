@@ -10,7 +10,10 @@ import parseMessage from "./parser";
 export function processMessage(message: string): ReturnType<Patient["toJSON"]> {
   const segments = parseMessage(message);
   if (segments.length === 0) {
-    throw new ParsingError("no segments parsed from message");
+    throw new ParsingError("no segments parsed from message", {
+      code: "E_NO_SEGMENTS",
+      original: message,
+    });
   }
 
   const extracted = extractPatient(segments);

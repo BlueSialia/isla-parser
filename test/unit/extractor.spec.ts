@@ -1,11 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ParsingError } from "../../src/internal/errors/parsing-error";
 import extractPatient from "../../src/internal/extractor";
-import {
-  COMPONENT_SEPARATOR,
-  SEGMENT_DET,
-  SEGMENT_PRS,
-} from "../../src/internal/message-constants";
+import { SEGMENT_DET, SEGMENT_PRS } from "../../src/internal/message-constants";
 
 describe("extractor.extractPatient", () => {
   it("extracts patient fields from provided segments", () => {

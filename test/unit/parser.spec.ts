@@ -38,6 +38,36 @@ describe("parser.parseSegment", () => {
     expect(seg.name).toBe("PRS");
     expect(seg.fields[0]).toEqual(["foo", "bar"]);
   });
+
+  it("handles an empty input string as an empty-name segment with no fields", () => {
+    const seg = parseSegment("");
+    expect(seg.name).toBe("");
+    expect(seg.fields).toEqual([]);
+  });
+
+  it("handles a line that starts with the field separator", () => {
+    const seg = parseSegment("|a^b");
+    expect(seg.name).toBe("");
+    expect(seg.fields.length).toBe(1);
+    expect(seg.fields[0]).toEqual(["a", "b"]);
+  });
+
+  it("handles a field consisting only of component separator producing empty components", () => {
+    const seg = parseSegment("X|^");
+    expect(seg.name).toBe("X");
+    expect(seg.fields[0]).toEqual(["", ""]);
+  });
+
+  it("preserves positions when many consecutive field separators are present", () => {
+    const seg = parseSegment("Z|a|||b|");
+    expect(seg.name).toBe("Z");
+    expect(seg.fields.length).toBe(5);
+    expect(seg.fields[0]).toEqual(["a"]);
+    expect(seg.fields[1]).toEqual([""]);
+    expect(seg.fields[2]).toEqual([""]);
+    expect(seg.fields[3]).toEqual(["b"]);
+    expect(seg.fields[4]).toEqual([""]);
+  });
 });
 
 describe("parser.parseMessage", () => {
@@ -82,5 +112,29 @@ describe("parser.parseMessage", () => {
     expect(segments[1].name).toBe("DET");
     expect(segments[0].fields[0]).toEqual(["a", "b"]);
     expect(segments[0].fields[1]).toEqual(["c"]);
+  });
+
+  it("ignores purely-blank lines but preserves lines that are only separators", () => {
+    const raw = ["  ", "|^", "", " ABC|x|y ", "   "].join("\n");
+    const segments = parseMessage(raw);
+
+    expect(segments.length).toBe(2);
+    expect(segments[0].name).toBe("");
+    expect(segments[0].fields[0]).toEqual(["", ""]);
+    expect(segments[1].name).toBe("ABC");
+    expect(segments[1].fields[0]).toEqual(["x"]);
+    expect(segments[1].fields[1]).toEqual(["y"]);
+  });
+
+  it("trims each line and parses segments even with surrounding noise", () => {
+    const raw = "  |a^b  \n   X|p||q  \n";
+    const segments = parseMessage(raw);
+    expect(segments.length).toBe(2);
+    expect(segments[0].name).toBe("");
+    expect(segments[0].fields[0]).toEqual(["a", "b"]);
+    expect(segments[1].name).toBe("X");
+    expect(segments[1].fields[0]).toEqual(["p"]);
+    expect(segments[1].fields[1]).toEqual([""]);
+    expect(segments[1].fields[2]).toEqual(["q"]);
   });
 });

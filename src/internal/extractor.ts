@@ -14,10 +14,16 @@ export function extractPatient(segments: ParsedSegment[]): BuildPatientArgs {
   for (const req of REQUIRED_SEGMENTS) {
     const count = segments.filter((s) => s.name === req).length;
     if (count === 0) {
-      throw new ParsingError(`required segment not found: ${req}`);
+      throw new ParsingError(`required segment not found: ${req}`, {
+        code: "E_MISSING_SEGMENT",
+        segment: req,
+      });
     }
     if (count > 1) {
-      throw new ParsingError(`multiple ${req} segments found`);
+      throw new ParsingError(`multiple ${req} segments found`, {
+        code: "E_MULTIPLE_SEGMENTS",
+        segment: req,
+      });
     }
   }
 

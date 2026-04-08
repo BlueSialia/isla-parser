@@ -2,8 +2,11 @@
 
 import { describe, expect, it } from "vitest";
 
+import { processMessage, processMessageToJsonString } from "../../src/browser";
+
 describe("browser adapter", () => {
   it("placeholder test", () => {
-    expect(1 + 2).toBe(3);
+    expect(typeof processMessage).toBe("function");
+    expect(typeof processMessageToJsonString).toBe("function");
   });
 });
