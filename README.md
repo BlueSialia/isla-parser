@@ -18,3 +18,5 @@ And describe how to structure a full application around the previous functionali
 ## Progress
 
 1. Start with a modern template for a Typescript library. I like bgub/ts-base because it's simple.
+
+2. Implement a pipeline of parse, extract, deserialize with validation and format to desired output.
